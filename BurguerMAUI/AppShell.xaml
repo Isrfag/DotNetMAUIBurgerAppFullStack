@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BurguerMAUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:local="clr-namespace:BurguerMAUI"
+    xmlns:pages="clr-namespace:BurguerMAUI.Pages"
+    Shell.FlyoutBehavior="Flyout"
+    Title="BurguerMAUI">
+
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Orange"
+                                   StatusBarStyle="LightContent"
+                                   />
+    </Shell.Behaviors>
+
+    <!--<ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />-->
+
+    <ShellContent ContentTemplate="{DataTemplate pages:OnBoardingPage}"
+                  Shell.FlyoutBehavior="Disabled"
+                  Shell.FlyoutItemIsVisible="False"
+                  Route="OnBoardingPage"/><!--Esto quita la página de entrada del flyout-->
+
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Home"
+            Icon="home"
+            ContentTemplate="{DataTemplate pages:HomePage}"
+            Route="HomePage"
+            Shell.NavBarIsVisible="False"/>
+        <ShellContent
+            Title="Cart"
+            Icon="cart"
+            ContentTemplate="{DataTemplate pages:CartPage}"
+            Route="CartPage"/>
+        <ShellContent
+            Title="Profile"
+            Icon="user"
+            ContentTemplate="{DataTemplate pages:ProfilePage}"
+            Route="ProfilePage"/>
+    </TabBar>
+
+    <MenuItem Text="Sign Out"
+              IconImageSource="logout"
+              Clicked="SignOut_Click"/>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="Auto, *, Auto" 
+                  RowDefinitions="Auto, Auto"
+                  Padding="10"
+                  ColumnSpacing="15"
+                  RowSpacing="5">
+                <Image Source="{Binding FlyoutIcon}" 
+                       HeightRequest="25"
+                       WidthRequest="25"
+                       Grid.Column="0"
+                       Grid.Row="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="Orange"/>
+                    </Image.Behaviors>
+                </Image>
+
+                <Label Text="{Binding Title}"
+                       TextColor="Orange"
+                       FontSize="16"
+                       Grid.Column="1"
+                       Grid.Row="0"/>
+                <Image Grid.Column="2"
+                       Source="rightarrow"
+                       WidthRequest="24"
+                       Grid.Row="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="Orange"/>
+                    </Image.Behaviors>
+                </Image>
+    
+                <BoxView Grid.Row="1"
+                         Grid.ColumnSpan="3"
+                         HeightRequest="1"
+                         Color="Orange"/>
+
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="Auto, *" 
+                  Padding="10"
+                  ColumnSpacing="15"
+                  RowSpacing="5">
+                <Image Source="{Binding Icon}" 
+                       HeightRequest="25"
+                       WidthRequest="25"
+                       Grid.Column="0"
+                       Grid.Row="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="Orange"/>
+                    </Image.Behaviors>
+                </Image>
+                <Label Text="{Binding Text}"
+                       TextColor="Orange"
+                       FontSize="16"
+                       Grid.Column="1"
+                       Grid.Row="0"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+    
+    <Shell.FlyoutHeader>
+        <Border Background="Orange"
+                Padding="10"
+                StrokeThickness="0">
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 Spacing="15">
+                <Image Source="burger"
+                       HeightRequest="150"
+                       WidthRequest="150"
+                       HorizontalOptions="Center"/>
+                <Label Text="MAUI Burger Deliver"
+                       HorizontalOptions="Center"
+                       FontSize="18"
+                       TextColor="White"
+                       TextTransform="Uppercase"/>
+            </VerticalStackLayout>
+        </Border>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <Border BackgroundColor="Orange"
+                StrokeThickness="0"
+                Padding="10">
+            <Label Text="App developed by Israel Fernández Agudo"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   FontSize="12"
+                   FontAttributes="Bold"/>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FlyoutFooter_Tapped"></TapGestureRecognizer>
+            </Border.GestureRecognizers>
+        </Border>
+    </Shell.FlyoutFooter>
+
+</Shell>

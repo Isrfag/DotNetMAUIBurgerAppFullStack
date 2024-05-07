@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dto="clr-namespace:Burger.Shared.Dtos;assembly=Burger.Shared"
+             xmlns:models="clr-namespace:BurguerMAUI.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:BurguerMAUI.ViewModels"
+             x:Class="BurguerMAUI.Pages.CartPage"
+             Title="My Cart"
+             BackgroundColor="#EEE">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Clear Cart" Command="{Binding ClearCartCommand}"/>
+    </ContentPage.ToolbarItems>
+    <Grid Padding="10">
+        <ScrollView Padding="0,0,0,70">
+            <CollectionView ItemsSource="{Binding CartItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:CartItem">
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="Orange"
+                                BackgroundColor="Orange"
+                                Padding="20">
+                            <Grid ColumnDefinitions="40,*,Auto,50">
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Quantity}"
+                                       VerticalOptions="Center"
+                                       FontSize="16"
+                                       FontAttributes="Bold"/>
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                    <Label Text="{Binding Name}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="White"/>
+                                    
+                                </VerticalStackLayout>
+                                 
+                                <Label Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                                       Grid.Column="2"
+                                       FontSize="15"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"/>
+                                
+                                <ImageButton Grid.Column="3"
+                                             Source="trash"
+                                             HeightRequest="24"
+                                             WidthRequest="24"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="End"
+                                             Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModel:CartViewModel}}, Path=ClearCartItemsCommand}"
+                                             CommandParameter="{Binding Id}"
+                                             >
+                                    <ImageButton.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="Red"/>
+                                    </ImageButton.Behaviors>
+                                </ImageButton>
+                                
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Button Text="Place Order" 
+                VerticalOptions="End"
+                HorizontalOptions="Center"/>
+        <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+    </Grid>
+</ContentPage>

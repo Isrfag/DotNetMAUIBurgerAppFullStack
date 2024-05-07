@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel ="clr-namespace:BurguerMAUI.ViewModels"
+             xmlns:dto="clr-namespace:Burger.Shared.Dtos;assembly=Burger.Shared"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:model="clr-namespace:BurguerMAUI.Models"
+             x:Class="BurguerMAUI.Pages.DetailsPage"
+             Shell.PresentationMode="ModalAnimated"
+             x:DataType="viewModel:DetailsViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:TextCaseConverter x:Key="TextCaseConverter" Type="FirstUpperRestLower"/>
+            <Style TargetType="ImageButton" x:Key="quantityBtn">
+                <Setter Property="BackgroundColor" Value="Orange"/>
+                <Setter Property="WidthRequest" Value="40"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="CornerRadius" Value="20"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid 
+        Padding="10,30,10,10"
+        RowDefinitions="Auto , * , Auto "
+         >
+        
+        <VerticalStackLayout Grid.Row="0" 
+                             HorizontalOptions="Center" 
+                             Spacing="10"
+                             Margin="0,0,0,10">
+            <Image Source="{Binding Burger.Image}"
+                   HeightRequest="350"
+                   WidthRequest="350"
+                   HorizontalOptions="Center"
+                   Aspect="AspectFit"/>
+            
+            <Label Text="{Binding Burger.Name}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Orange"/>
+            
+            <Label Text="{Binding Burger.Price, StringFormat='{0:C}'}"
+                   TextColor="Orange"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+
+            <Label Text="List Of Ingredients "
+                       TextColor="Orange"
+                       FontSize="20"
+                       FontAttributes="Italic"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+
+        </VerticalStackLayout>
+
+
+        <CollectionView 
+                        ItemsSource="{Binding Options}"
+                        Grid.Row="1"
+                        HorizontalOptions="FillAndExpand"
+                        
+                        >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="1"
+                                 Orientation="Vertical"
+                                 />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:BurgerOption">
+
+                    <Border StrokeShape="RoundRectangle 5"
+                            Stroke="Gray"
+                            Padding="5"
+                            BackgroundColor="DarkOrange">
+
+
+                        <VerticalStackLayout Spacing="5" HorizontalOptions="FillAndExpand">
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Meat: " FontAttributes="Bold"/>
+                                <Label Text="{Binding Meat, Converter={StaticResource TextCaseConverter}}" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Cheese: " FontAttributes="Bold"/>
+                                <Label Text="{Binding Cheese, Converter={StaticResource TextCaseConverter}}"  TextColor="White" />
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Bacon: " FontAttributes="Bold"/>
+                                <Label Text="{Binding Bacon, Converter={StaticResource TextCaseConverter} }" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Letuce: " FontAttributes="Bold"/>
+                                <Label Text="{Binding Letuce, Converter={StaticResource TextCaseConverter}}" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Egg: " FontAttributes="Bold"/>
+                                <Label Text="{Binding Egg, Converter={StaticResource TextCaseConverter}}" TextColor="White" />
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Caramelized Onion: " FontAttributes="Bold"/>
+                                <Label Text="{Binding CaramelizedOnion, Converter={StaticResource TextCaseConverter}}" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Regular Onion: " FontAttributes="Bold"/>
+                                <Label Text="{Binding RegularOnion, Converter={StaticResource TextCaseConverter}}" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15">
+                                <Label Text="Tomato: " FontAttributes="Bold"/>
+                                <Label Text="{Binding Tomato , Converter={StaticResource TextCaseConverter}}" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="15" >
+                                <Label Text="Sauce: " FontAttributes="Bold" />
+                                <Label Text="{Binding Sauce, Converter={StaticResource TextCaseConverter}}" TextColor="White"/>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModel:DetailsViewModel}}, Path=SelectOptionCommand}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <HorizontalStackLayout Grid.Row="2"
+                             VerticalOptions="End"
+                             Spacing="25">
+            <Grid ColumnDefinitions="*, 100, *">
+
+                <ImageButton Grid.Column="0"
+                             Source="minus" 
+                             Style="{x:StaticResource quantityBtn}"
+                             Command="{Binding DecreaseQuantityCommand}">
+                            <ImageButton.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Quantity}"
+                                    TargetType="ImageButton"
+                                    Value="0">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                            </ImageButton.Triggers>
+                </ImageButton>
+
+                <Label Text="{Binding Quantity}"
+                       Grid.Column="1"
+                       VerticalOptions="Center"
+                       TextColor="Orange"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       FontSize="25"/>
+                <ImageButton Grid.Column="2"
+                             Source="plus"
+                             Style="{x:StaticResource quantityBtn}"
+                             Command="{Binding IncreaseQuantityCommand}"/>
+            </Grid>
+            <Button Text="Add to Cart" 
+                    WidthRequest="160"
+                    Command="{Binding AddToCartCommand}"/>
+        </HorizontalStackLayout>
+
+        <ImageButton Source="cross"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Start"
+                     BackgroundColor="Orange"
+                     HeightRequest="35"
+                     WidthRequest="35"
+                     CornerRadius="15"
+                     Padding="5"
+                     Margin="10,0,0,0"
+                     Command= "{Binding GoBackCommand}">
+            <ImageButton.Shadow>
+                <Shadow/>
+            </ImageButton.Shadow>
+        </ImageButton>
+    </Grid>
+    
+</ContentPage>

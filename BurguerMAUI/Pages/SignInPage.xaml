@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:BurguerMAUI.ViewModels"
+             x:Class="BurguerMAUI.Pages.SignInPage"
+             Title="Sign In"
+             x:DataType="ViewModel:AuthViewModel"
+             Shell.FlyoutBehavior="Disabled">
+    <Grid>
+        <VerticalStackLayout VerticalOptions="Center"
+                         Padding="20"
+                         Spacing="15">
+            <Image Source="burger"
+               HeightRequest="150"
+               WidthRequest="150"
+               Aspect="AspectFit"/>
+            
+            <Entry Text="{Binding Email}"
+               Placeholder="Email" 
+               Keyboard="Email"
+               />
+            <Entry Text="{Binding Password}"
+               Placeholder="Password"
+               IsPassword="True"
+               />
+            <Label Text="Are you new? Sign up!" 
+               FontSize="15" 
+               FontAttributes="Bold" 
+               TextColor="Orange">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SignUpLabelTapped"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button Text="Sign In"
+                IsEnabled="{Binding CanSignIn}"
+                Command="{Binding SignInCommand}"/>
+
+        </VerticalStackLayout>
+        <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+    </Grid>
+</ContentPage>
