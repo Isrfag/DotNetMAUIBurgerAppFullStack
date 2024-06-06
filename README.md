@@ -37,7 +37,7 @@ Full Stack application that emulates a hamburger store and allows the user throu
 ### The application works on Android and Ios thanks to the versatility of .netMaui.
 
 
-![[img 1](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png))
+[![img 1](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png))
 
 ![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/1.png) "img 2")
 
