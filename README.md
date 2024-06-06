@@ -39,14 +39,16 @@ Full Stack application that emulates a hamburger store and allows the user throu
 
 [![img 1](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png))
 
-![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/1.png) "img 2")
+[![img 2](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/1.png))
 
-![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/2.png) "img 3")
+[![img 3](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/2.png))
 
-![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/3.png) "img 4")
+[![img 4](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/3.png))
 
-![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/4.png) "img 5")
+[![img 5](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/4.png))
 
-![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/5.png) "img 6")
+[![img 6](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/5.png))
 
-![Alt text]([https://assets.digitalocean.com/articles/alligator/boo.svg](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/6.png) "img 7")
+[![img 7](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/7.png)]([https://github.com](https://raw.githubusercontent.com/Isrfag/Images-For-Projecrs/master/6.png))
+
+
