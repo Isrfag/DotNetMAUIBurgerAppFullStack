@@ -86,7 +86,7 @@ namespace BurguerMAUI.ViewModels
                 SignInRequestDto signInDto = new SignInRequestDto(Email, Password);
 
                 //Llamamos a la api
-                ResultWithDataDto<AuthResponseDto> result = await _authApi.SignInAsync(signInDto);
+                var  result = await _authApi.SignInAsync(signInDto);
 
                 if (result.IsSuccess)
                 {

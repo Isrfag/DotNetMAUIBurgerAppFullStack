@@ -5,7 +5,7 @@ namespace BurgerAPI.Api.Services
 {
     public class PasswordService
     {
-        private const int saltSize = 8;
+        private const int saltSize = 10;
         public (string salt, string hashedPassword) GenerateSaltAndHash(string plainPassword)
         {
             if (string.IsNullOrWhiteSpace(plainPassword))

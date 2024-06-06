@@ -77,5 +77,23 @@ namespace BurgerAPI.Api.Services
         }
 
 
+        //Vamos a hacer que el controlador de autentificaciones se encargue del cambio de contraseña
+        public async Task<ResultDto> ChangePasswordAsync (ChangePasswordDto dto, Guid userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(usr => usr.Id == userId);
+
+            if (user is null)
+                return ResultDto.Failure("Invalid Request");
+
+            if (!_passwordService.IsEqual(dto.OldPassword, user.Salt, user.Hash))
+            {
+                return ResultDto.Failure("Incorrect password");
+            }
+
+            (user.Salt, user.Hash) = _passwordService.GenerateSaltAndHash(dto.NewPassword);
+
+            await _context.SaveChangesAsync();
+            return ResultDto.Success();
+        }
     }
 }

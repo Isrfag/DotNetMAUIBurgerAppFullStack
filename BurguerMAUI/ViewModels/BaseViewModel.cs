@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿using BurguerMAUI.Pages;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace BurguerMAUI.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
+        public BaseViewModel() { }
+
         [ObservableProperty]
         private bool isBusy;
 
@@ -25,14 +29,22 @@ namespace BurguerMAUI.ViewModels
         protected async Task ShowAlertAsync(string message) =>
             await ShowAlertAsync("Alert", message);
 
-        protected async Task ShowAlertAsync(string tittle,string message) =>
-            await Shell.Current.DisplayAlert("Alert", message, "Ok");
+        protected async Task ShowAlertAsync(string title,string message) =>
+            await Shell.Current.DisplayAlert(title, message, "Ok");
 
         protected async Task ShowToastAsync(string message) =>
             await Toast.Make(message).Show();
 
         protected async Task<bool> ConfirmAsync(string title, string message) =>
             await Shell.Current.DisplayAlert(title, message, "Yes", "No");
+
+        protected async Task HandleApiExceptionAsync(ApiException ex, Action? needToSignOut )
+        {
+            await ShowErrorAlertAsync("Session Expired");
+            needToSignOut?.Invoke();
+            await GoToAsync($"//{nameof(OnBoardingPage)}");
+            return;
+        }
         
     }
 }

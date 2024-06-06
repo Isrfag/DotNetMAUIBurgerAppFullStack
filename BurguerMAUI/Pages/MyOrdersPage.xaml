@@ -1,12 +1,87 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel ="clr-namespace:BurguerMAUI.ViewModels"
+             xmlns:dto ="clr-namespace:Burger.Shared.Dtos;assembly=Burger.Shared"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="BurguerMAUI.Pages.MyOrdersPage"
-             Title="MyOrdersPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="My Orders"
+             x:DataType="viewModel:OrdersViewModel"
+             BackgroundColor="#eee">
+
+    <RefreshView Command="{Binding LoadOrdersCommand}" IsRefreshing="{Binding IsBusy}">
+        <Grid>
+            <ScrollView Padding="10">
+                
+                <CollectionView ItemsSource="{Binding Orders}">
+                    <CollectionView.ItemTemplate>
+                        
+                        <DataTemplate x:DataType="dto:OrderDto">
+                            <Border StrokeShape="RoundRectangle 10"
+                                    StrokeThickness="0"
+                                    BackgroundColor="White"
+                                    Margin="0,4"
+                                    Padding="15">
+                                
+                                <Grid ColumnDefinitions="*, Auto, Auto"
+                                      ColumnSpacing="10">
+                                    
+                                    <Grid Grid.Column="0"
+                                        RowDefinitions="*,Auto"
+                                        RowSpacing="2">
+                                        
+                                        <Label Grid.Row="0" 
+                                               Text="{Binding id, StringFormat='Order Id: {0}'}"
+                                               FontSize="15"
+                                               TextColor="Orange"
+                                               />
+                                        <Label Grid.Row="1"
+                                               Text="{Binding BurgerCount}"
+                                               FontSize="12"/>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1" 
+                                          RowDefinitions="*, *"
+                                          RowSpacing="2">
+                                        <Label Grid.Row="0"
+                                               FontSize="15"
+                                               Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                                               TextColor="Orange"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="End"/>
+                                        
+                                        <Label Grid.Row="1"
+                                               FontSize="12"
+                                               Text="{Binding OrderAt, StringFormat= '{0: MMM dd yyyy, hh:mm}'}"/>
+                                    </Grid>
+
+                                    <Image Grid.Column="2"
+                                           Source="rightarrow"
+                                           VerticalOptions="Center"
+                                           HeightRequest="25"
+                                           WidthRequest="25"
+                                           >
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="Orange"/>
+                                        </Image.Behaviors>
+                                    </Image>
+
+
+                                </Grid>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModel:OrdersViewModel}}, Path= GoToOrderDetailsPageCommand}"
+                                                          CommandParameter="{Binding id}">
+                                        
+                                    </TapGestureRecognizer>
+                                </Border.GestureRecognizers>
+        </Border>
+        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+        </Grid>
+        
+    </RefreshView>
+    
 </ContentPage>

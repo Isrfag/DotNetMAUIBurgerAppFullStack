@@ -75,10 +75,19 @@ namespace BurguerMAUI.ViewModels
         [RelayCommand]
         private async Task AddToCart()
         {
-            var SelectedBurger = Options.FirstOrDefault(option => option.IsSelected) ?? Options[0];
+            var selectedBurger = Options.FirstOrDefault(option => option.IsSelected) ?? Options[0];
             _cartViewModel.AddItemToCart(
-                Burger, 
-                Quantity);
+                Burger,
+                Quantity,
+                selectedBurger.Meat,
+                selectedBurger.Letuce,
+                selectedBurger.Bacon,
+                selectedBurger.CaramelizedOnion,
+                selectedBurger.Egg,
+                selectedBurger.RegularOnion,
+                selectedBurger.Tomato,
+                selectedBurger.Cheese,
+                selectedBurger.Sauce);
 
             //Cerramos la pestaña al añadir al carrito
             await GoBackAsync();

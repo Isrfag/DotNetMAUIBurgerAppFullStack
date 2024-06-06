@@ -16,25 +16,23 @@ builder.Services.AddSwaggerGen();
 string? connectionString = builder.Configuration.GetConnectionString("Burger"); //Nombre conexion en el config del json
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
-
+//Activamos la autentificacion y la autorizacion
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}
-).AddJwtBearer(jwtOptions =>
-{
-    jwtOptions.TokenValidationParameters = TokenService.GetTokenValidationParameters(builder.Configuration);
-}
-);
+})
+    .AddJwtBearer(jwtOptions =>
+        jwtOptions.TokenValidationParameters = TokenService.GetTokenValidationParameters(builder.Configuration));
 
+builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 builder.Services.AddTransient<TokenService>()
                 .AddTransient<PasswordService>()
                 .AddTransient<AuthService>()
-                .AddTransient<BurgerService>();
-
+                .AddTransient<BurgerService>()
+                .AddTransient<OrderService>();
 
 
 var app = builder.Build();
@@ -57,9 +55,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//Activamos el controlador de Usuarios y burgers
-app.SignUpAndSignInUsers();
+//Activamos el controlador de Usuarios y burgers y pedidos
+app.ManageUsers();
 app.GetBurgers();
+app.saveOrders();
 
 app.Run();
 

@@ -10,10 +10,14 @@ namespace BurguerMAUI.Services
 {
     public interface IAuthApi
     {
-        [Post("/api/signup")]
+        [Post("/api/auth/signup")]
         Task<ResultWithDataDto<AuthResponseDto>> SignUpAsync(SignUpRequestDto dto);
 
-        [Post("/api/signin")]
+        [Post("/api/auth/signin")]
         Task<ResultWithDataDto<AuthResponseDto>> SignInAsync(SignInRequestDto dto);
+
+        [Headers("Authorization: Bearer")]
+        [Put("/api/auth/change-password")]
+        Task<ResultDto> ChangePasswordAsync(ChangePasswordDto dto);
     }
 }

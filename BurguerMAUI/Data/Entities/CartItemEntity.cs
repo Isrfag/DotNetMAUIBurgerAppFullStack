@@ -16,6 +16,15 @@ namespace BurguerMAUI.Data.Entities
         public string Name { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
+        public string Meat { get; set; }
+        public string Letuce { get; set; }
+        public string Bacon { get; set; }
+        public string CaramelizedOnion { get; set; }
+        public string FriedEgg { get; set; }
+        public string RegOnion { get; set; }
+        public string Tomato { get; set; }
+        public string CheeseType { get; set; }
+        public string Sauce { get; set; }
 
         //Contructor con parametros
         public CartItemEntity(CartItem cartItemModel)
@@ -39,7 +48,16 @@ namespace BurguerMAUI.Data.Entities
                 Name = Name,
                 BurgerId = BurgerId,
                 Price = Price,
-                Quantity = Quantity
+                Quantity = Quantity,
+                Meat = Meat,
+                Letuce = Letuce,
+                Bacon= Bacon,
+                CacaramelizedOnion = CaramelizedOnion,
+                FriedEgg = FriedEgg,
+                RegOnion = RegOnion,
+                Tomato = Tomato,
+                CheeseType = CheeseType,
+                Sauce = Sauce,
             };
         
     }

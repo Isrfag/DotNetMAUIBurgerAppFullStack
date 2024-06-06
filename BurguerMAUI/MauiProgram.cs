@@ -64,41 +64,28 @@ namespace BurguerMAUI
 
             builder.Services.AddSingleton<DataBaseService>();
 
+            builder.Services.AddTransient<ProfileViewModel>()
+                            .AddTransient<ProfilePage>();
+
+            builder.Services.AddTransient<OrdersViewModel>()
+                            .AddTransient<MyOrdersPage>();
+
+            builder.Services.AddTransient<OrderDetailViewModel>()
+                            .AddTransient<OrderDetailsPage>();
+
+            builder.Services.AddTransient<ChangePasswordViewModel>();
+
             ConfigureRefit(builder.Services);
             return builder.Build();
         }
 
         private static void ConfigureRefit(IServiceCollection services)
         {
-            
-
-            RefitSettings refitSettings = new()
-            {
-                HttpMessageHandlerFactory = () =>
-                {
-#if ANDROID
-                    return new AndroidMessageHandler 
-                    {
-                        ServerCertificateCustomValidationCallback = (httpRequestMessage, certificate , chain , sslPolicyErrors) =>
-                        {
-                            return certificate?.Issuer == "CN=localhost" || sslPolicyErrors == SslPolicyErrors.None;
-                        }
-                    };
-#elif IOS
-                    return new NSUrlSessionHandler
-                    {
-                        TrustOverrideForUrl = (NSUrlSessionHandler sender, string url, SecTrust trust) =>
-                            url.StartsWith("http://localhost")
-                    };
-#endif
-                    return null;
-                }
-            };
-
-            services.AddRefitClient<IAuthApi>(refitSettings).ConfigureHttpClient(SetHttpClient);
+            services.AddRefitClient<IAuthApi>(GetRefitSettings).ConfigureHttpClient(SetHttpClient);
         
+            services.AddRefitClient<IBurgerApi>(GetRefitSettings).ConfigureHttpClient(SetHttpClient);
 
-            services.AddRefitClient<IBurgerApi>(refitSettings).ConfigureHttpClient(SetHttpClient);
+            services.AddRefitClient<IOrderApi>(GetRefitSettings).ConfigureHttpClient(SetHttpClient);
 
             static void SetHttpClient (HttpClient httpClient)
             {
@@ -114,7 +101,35 @@ namespace BurguerMAUI
                 httpClient.BaseAddress = new Uri(baseUrl);
             }
 
+            static RefitSettings GetRefitSettings(IServiceProvider serviceProvider)
+            {
+                AuthService authService = serviceProvider.GetRequiredService<AuthService>();
 
+                RefitSettings refitSettings = new()
+                {
+                    HttpMessageHandlerFactory = () =>
+                    {
+#if ANDROID
+                    return new AndroidMessageHandler 
+                    {
+                        ServerCertificateCustomValidationCallback = (httpRequestMessage, certificate , chain , sslPolicyErrors) =>
+                        {
+                            return certificate?.Issuer == "CN=localhost" || sslPolicyErrors == SslPolicyErrors.None;
+                        }
+                    };
+#elif IOS
+                        return new NSUrlSessionHandler
+                        {
+                            TrustOverrideForUrl = (NSUrlSessionHandler sender, string url, SecTrust trust) =>
+                                url.StartsWith("https://localhost")
+                        };
+#endif
+                        return null;
+                    },
+                    AuthorizationHeaderValueGetter = (_, __) => Task.FromResult(authService.Token ?? string.Empty)
+                };
+                return refitSettings;
+            }
 
         }
     }

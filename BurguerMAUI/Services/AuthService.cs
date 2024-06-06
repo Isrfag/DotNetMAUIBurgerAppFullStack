@@ -11,14 +11,15 @@ namespace BurguerMAUI.Services
     public class AuthService
     {
         private const string AuthKey = "AuthKey";
-        public LoggedInUser User { get; private set; }
+        public LoggedInUser? User { get; private set; }
         public string? Token { get; private set; }
 
         public void SignIn(AuthResponseDto dto)
         {
             string serialized = JsonSerializer.Serialize(dto);
             Preferences.Default.Set(AuthKey,serialized);
-            (User,Token) = dto;
+            
+            (User, Token) = dto;
         }
 
         public void Initialize()

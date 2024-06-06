@@ -23,12 +23,12 @@ namespace BurgerAPI.Api.Services
                 ValidateIssuer = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = config["Jwt: Issuer"],
+                ValidIssuer = config["Jwt:Issuer"],
                 IssuerSigningKey = GetSecurityKey(config),
             };
         }
 
-        public string GenerateJwt( LoggedInUser user )
+        public string GenerateJwt(LoggedInUser user )
         {
              // appsettings.json
             string? issuer = _configuration["Jwt:Issuer"];
