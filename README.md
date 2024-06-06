@@ -24,7 +24,7 @@ Aplicación Full Stack que emula una tienda de hamburguesas y permite al usuario
 
 Full Stack application that emulates a hamburger store and allows the user through his account (with login and registration) to order hamburgers.
 
-## Technology used:
+## Tech used:
 
 1. .net Maui as frontend, prepared to run on physical Android and IOs devices, as well as emulators of these Operating Systems.
 2. Use Asp Core to create the Api and endpoints to send and receive info from a local Sql server database.
