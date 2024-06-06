@@ -118,12 +118,12 @@ namespace BurguerMAUI.ViewModels
         [RelayCommand]
         private async Task ClearCartAsync ()
         {
-            await ClearCartInternalAsync(fromPlaceOrder: false);
+            await ConfirmAsync("Clear Cart?", "Do you want to clear all the items from cart?");
+            await ClearCartInternalAsync(fromPlaceOrder: true);
         }
 
         private async Task ClearCartInternalAsync (bool fromPlaceOrder)
         {
-
             if( !fromPlaceOrder || CartItems.Count == 0)
             {
                 await ShowAlertAsync("Empty Cart", "There aren't items in the cart");

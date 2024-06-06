@@ -6,6 +6,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:BurguerMAUI.ViewModels"
              x:Class="BurguerMAUI.Pages.CartPage"
+             x:DataType="viewModel:CartViewModel"
              Title="My Cart"
              BackgroundColor="#EEE">
     <ContentPage.ToolbarItems>
@@ -31,15 +32,15 @@
                                            FontSize="15"
                                            FontAttributes="Bold"
                                            TextColor="White"/>
-                                    
+
                                 </VerticalStackLayout>
-                                 
+
                                 <Label Text="{Binding TotalPrice, StringFormat='{0:C}'}"
                                        Grid.Column="2"
                                        FontSize="15"
                                        VerticalOptions="Center"
                                        HorizontalOptions="End"/>
-                                
+
                                 <ImageButton Grid.Column="3"
                                              Source="trash"
                                              HeightRequest="24"
@@ -53,7 +54,7 @@
                                         <toolkit:IconTintColorBehavior TintColor="Red"/>
                                     </ImageButton.Behaviors>
                                 </ImageButton>
-                                
+
 
                             </Grid>
                         </Border>
